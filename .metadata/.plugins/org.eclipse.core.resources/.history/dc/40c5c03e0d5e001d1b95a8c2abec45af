@@ -1,0 +1,32 @@
+package main;
+
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+public class WordFrequency 
+{
+	public keyword()
+	{
+		int frequency;
+		String word;
+		
+	}
+	public static void main(String[] args) 
+	{
+		String url ="https://www.bestbuy.ca/en-ca/product/apple-iphone-13-pro-128gb-alpine-green-unlocked/16001802";
+		try 
+		{
+			Document doc = Jsoup.connect(url).get();
+			String text = doc.body().text();
+			
+		} catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+}

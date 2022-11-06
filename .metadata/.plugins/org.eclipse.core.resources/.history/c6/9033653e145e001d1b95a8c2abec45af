@@ -1,0 +1,68 @@
+package main;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Document.OutputSettings;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.safety.Safelist;
+import org.jsoup.select.Elements;
+
+public class WordFrequency 
+{
+	Map<String, Word> freq = new HashMap<String, Word>();
+	List<String> words = new ArrayList();
+	
+	public static void main(String[] args) 
+	{
+		String url ="https://www.bestbuy.ca/en-ca/product/apple-iphone-13-pro-128gb-alpine-green-unlocked/16001802";
+		try 
+		{
+			//Document.OutputSettings outputSettings = new Document.OutputSettings();
+			//outputSettings.prettyPrint(false);
+			
+			Document doc = Jsoup.connect(url).get();
+			/*
+			doc.outputSettings(outputSettings);
+			doc.select("br").before("\\n");
+			doc.select("p").before("\\n");
+			
+			
+			String str = doc.html().replaceAll("\\\\n", "\n");
+			
+			String strWithNewLines = Jsoup.clean(str, "", Safelist.none(), outputSettings);
+			*/
+			//String text = doc.body().text();
+			
+			Elements tags = doc.select("*");
+		    for (Element tag : tags) 
+		    {
+		        for (TextNode tn : tag.textNodes()) 
+		        {
+		            String tagText = tn.text().trim();
+		            if (tagText.length() > 0) 
+		            {
+		                text += tagText + " ";
+		            }
+		        }
+		    }
+		    System.out.println(text);
+			
+		}
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+}

@@ -1,0 +1,10 @@
+package main;
+
+public class Word 
+{
+	public Word(String value)
+	{
+		int frequency = 1;
+		String word = value;
+	}
+}

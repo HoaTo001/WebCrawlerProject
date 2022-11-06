@@ -1,0 +1,43 @@
+package main;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Document.OutputSettings;
+import org.jsoup.nodes.TextNode;
+
+public class WordFrequency 
+{
+	Map<String, Word> freq = new HashMap<String, Word>();
+	List<String> words = new ArrayList();
+	
+	public static void main(String[] args) 
+	{
+		String url ="https://www.bestbuy.ca/en-ca/product/apple-iphone-13-pro-128gb-alpine-green-unlocked/16001802";
+		try 
+		{
+			Document doc = Jsoup.connect(url).get();
+			
+			doc.outputSettings(new Document.OutputSettings().prettyPrint(false));
+			doc.select("br").before("\\n");
+			doc.select("p").before("\\n");
+			
+			String text = doc.body().text();
+			
+		}
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+}

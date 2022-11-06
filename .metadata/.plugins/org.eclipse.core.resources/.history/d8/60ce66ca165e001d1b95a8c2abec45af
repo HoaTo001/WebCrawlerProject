@@ -1,0 +1,70 @@
+package main;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Document.OutputSettings;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.safety.Safelist;
+import org.jsoup.select.Elements;
+
+public class WordFrequency 
+{
+	static HashMap<String, Word> freq = new HashMap<String, Word>();
+	static List<String> words = new ArrayList();
+	static String[] urlText;
+	
+	public static void main(String[] args) 
+	{
+		String url ="https://www.bestbuy.ca/en-ca/product/apple-iphone-13-pro-128gb-alpine-green-unlocked/16001802";
+		try 
+		{
+			Document doc = Jsoup.connect(url).get();
+					
+			String text ="";
+			Elements tags = doc.select("*");
+		    for (Element tag : tags) 
+		    {
+		        for (TextNode tn : tag.textNodes()) 
+		        {
+		            String tagText = tn.text().trim();
+		            if (tagText.length() > 0) 
+		            {
+		                text += tagText + " ";
+		            }
+		        }
+		    }
+		    System.out.println(text);
+		    urlText = text.split("[^a-zA-Z\\d]");
+			
+		    for(String str: urlText)
+		    {
+		    	if (!words.contains(str))
+		    	{
+		    		words.add(str);
+		    		freq.put(str, new Word(str));
+		    		
+		    	}
+		    	else
+		    	{
+		    		
+		    	}
+		    }
+		}
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+}

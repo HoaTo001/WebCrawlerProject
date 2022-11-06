@@ -1,0 +1,94 @@
+package main;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Document.OutputSettings;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.safety.Safelist;
+import org.jsoup.select.Elements;
+
+public class WordFrequency 
+{	
+	// List to store unique words and their frequency
+	static Map<String, Word> freq = new HashMap<String, Word>();
+
+	public void getWordFrequency(String url)
+	{
+		// List to store unique words
+		List<String> words = new ArrayList();
+		
+		String[] urlText;
+		try 
+		{
+			// Get the website HTML content
+			Document doc = Jsoup.connect(url).get();		
+			String text ="";
+			
+			//
+			Elements tags = doc.select("*");
+		    for (Element tag : tags) 
+		    {
+		        for (TextNode tn : tag.textNodes()) 
+		        {
+		            String tagText = tn.text().trim();
+		            if (tagText.length() > 0) 
+		            {
+		                text += tagText + " ";
+		            }
+		        }
+		    }
+		    
+		    // Tokenize the string using non-alphanumeric and white space as delimiters
+		    urlText = text.split("[^a-zA-Z\\d]");
+			
+		    // 
+		    for(String str: urlText)
+		    {
+		    	if(str != "")
+		    	{
+		    		if (!words.contains(str))
+			    	{
+			    		words.add(str);
+			    		freq.put(str, new Word(str));
+			    		
+			    	}
+			    	else
+			    	{
+			    		freq.get(str).frequency++; 
+			    	}
+		    	}
+		    	
+		    }	    
+		}
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	// Function to print all the unique words and their frequencies 
+	public void printFrequency()
+	{
+		 for(Map.Entry<String, Word> entry: freq.entrySet())
+		    {
+		    	System.out.println(entry.getKey()+": "+entry.getValue().frequency);
+		    }
+	}
+	
+	public static void main(String[] args) 
+	{
+		String url ="https://www.bestbuy.ca/en-ca/product/apple-iphone-13-pro-128gb-alpine-green-unlocked/16001802";
+		WordFrequency test = new WordFrequency();
+		test.getWordFrequency(url);
+		test.printFrequency();
+	}
+	
+}
