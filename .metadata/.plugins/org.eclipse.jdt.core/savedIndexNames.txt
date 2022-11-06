@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\Hoa To\Desktop\ACC_Project\WebCrawlerProject\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+378753145.index
+3011209426.index
